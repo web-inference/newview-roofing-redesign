@@ -1,0 +1,37 @@
+/* =========================================================
+   New View Roofing — Design tokens (Brief §3.2, verbatim)
+   Do not approximate or add values here. Derived values
+   live in base.css and are always computed from these.
+   ========================================================= */
+:root{
+  /* ---- Colour — refined from their existing brand ---- */
+  --ink:        #0B1A33;   /* deep navy — headlines, dark sections */
+  --navy:       #16305C;   /* brand blue, refined */
+  --navy-soft:  #233F6E;
+  --gold:       #C08A3E;   /* refined from their #D6A85B — passes contrast */
+  --gold-light: #E3C48E;
+  --bone:       #F7F5F1;   /* page background — NOT pure white */
+  --white:      #FFFFFF;
+  --slate:      #5A6679;   /* body text on light */
+  --line:       #E6E2DB;   /* 1px hairlines — no drop shadows */
+  --signal:     #B3321E;   /* storm / emergency only — max 2 uses per page */
+
+  /* ---- Type ---- */
+  --font-display: "Archivo", system-ui, -apple-system, sans-serif;
+  --font-body:    "Inter", system-ui, -apple-system, sans-serif;
+
+  /* ---- Space — 8pt grid ---- */
+  --section-y: clamp(80px, 10vw, 160px);
+  --container: 1280px;
+  --content:   1120px;
+  --gutter:    24px;
+
+  /* ---- Radius ---- */
+  --radius-sm: 4px;
+  --radius:    8px;
+  --radius-lg: 16px;
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur:  420ms;
+}

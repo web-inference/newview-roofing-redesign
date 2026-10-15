@@ -1,0 +1,132 @@
+/* =========================================================
+   v2.css — overrides for index-v2.html only
+   · Dusk hero (blue-hour photo, light type, inline inspection form)
+   · Real trust badge wall
+   · Real team photo
+   · Filled brand social icons
+   Loaded after sections.css / motion.css.
+   ========================================================= */
+
+/* ---------- Dusk hero ---------- */
+.hero--dusk{
+  --focus:var(--gold);
+  background:var(--ink);
+  color:var(--on-dark-muted);
+  min-height:0;
+  align-items:stretch;
+}
+.hero--dusk .hero__media picture{ position:absolute; inset:0; }
+.hero--dusk .hero__media img{ object-position:62% 100%; }
+
+/* The site's one gradient: an ink wash that keeps type legible over the sky */
+.hero--dusk .hero__vignette{
+  background:linear-gradient(180deg,
+    color-mix(in srgb, var(--ink) 55%, transparent) 0%,
+    color-mix(in srgb, var(--ink) 82%, transparent) 55%,
+    color-mix(in srgb, var(--ink) 94%, transparent) 100%);
+}
+.hero--dusk .hero__inner{
+  width:100%;
+  display:grid; grid-template-columns:minmax(0, 1fr); gap:40px; align-items:center;
+  padding-block:48px 56px;
+}
+.hero--dusk .hero__content{ padding:0; gap:20px; }
+.hero--dusk .hero__eyebrow{ color:var(--gold-light); max-width:none; }
+.hero--dusk .hero__title{ color:var(--bone); max-width:14ch; }
+.hero--dusk .hero__sub{ color:var(--on-dark-muted); max-width:40ch; }
+.hero--dusk .hero__note{ color:var(--bone); }
+.hero--dusk .hero__note .icon{ color:var(--gold-light); }
+.hero--dusk .hero__call{
+  background:transparent; color:var(--bone);
+  border-color:color-mix(in srgb, var(--bone) 35%, transparent);
+}
+.hero--dusk .hero__call:hover{ border-color:var(--bone); background:transparent; }
+
+.hero__trust{
+  display:flex; flex-wrap:wrap; gap:10px 24px; margin-top:8px; padding-top:20px;
+  border-top:1px solid color-mix(in srgb, var(--bone) 16%, transparent);
+  list-style:none; font-size:var(--fs-small); color:var(--bone);
+}
+.hero__trust li{ display:inline-flex; align-items:center; gap:8px; }
+.hero__trust .icon{ color:var(--gold-light); font-size:16px; }
+
+/* Hero form card */
+.hero-form{
+  --focus:var(--ink);
+  position:relative;
+  background:var(--white); color:var(--slate);
+  border-radius:var(--radius-lg);
+  padding:clamp(24px, 3vw, 32px);
+}
+.hero-form__head{ display:grid; gap:4px; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid var(--line); }
+.hero-form__head h2{ font-size:var(--fs-d4); }
+.hero-form__head p{ font-size:var(--fs-small); color:var(--navy); font-weight:500; }
+.hero-form .form{ gap:14px; grid-template-columns:minmax(0, 1fr); }
+.hero-form .btn--block{ white-space:normal; line-height:1.3; padding-block:12px; }
+.hero-form .field{ gap:4px; }
+.hero-form .field input,.hero-form .field textarea{ min-height:46px; padding:10px 12px; }
+.hero-form .field textarea{ min-height:72px; }
+.hero-form__pair{ display:grid; gap:14px; }
+.hero-form .form__micro{ font-size:0.8125rem; text-align:center; }
+.hero-form .form-success{ padding:24px 0 8px; }
+
+@media (min-width:480px){ .hero-form__pair{ grid-template-columns:1fr 1fr; } }
+@media (max-width:767px){ .hero--dusk .hero__actions .btn{ white-space:normal; text-align:center; line-height:1.3; padding-block:12px; } }
+@media (max-width:767px){
+  /* override v1's stacked-photo layout: photo stays behind everything */
+  .hero--dusk{ flex-direction:row; }
+  .hero--dusk .hero__media{ position:absolute; inset:0; aspect-ratio:auto; order:0; }
+  .hero--dusk .hero__vignette{ display:block; }
+}
+@media (min-width:1024px){
+  .hero--dusk .hero__inner{ grid-template-columns:minmax(0, 1fr) 420px; gap:64px; padding-block:72px 80px; }
+  .hero--dusk .hero__vignette{
+    background:linear-gradient(90deg,
+      color-mix(in srgb, var(--ink) 88%, transparent) 0%,
+      color-mix(in srgb, var(--ink) 62%, transparent) 45%,
+      color-mix(in srgb, var(--ink) 30%, transparent) 100%);
+  }
+}
+@media (min-width:1280px){
+  .hero--dusk .hero__inner{ grid-template-columns:minmax(0, 1fr) 440px; gap:96px; }
+}
+
+/* Proof strip directly under a dark hero */
+.hero--dusk + .proof-strip{ border-top:0; }
+
+/* ---------- Real trust badge wall ---------- */
+.badges__list--real{
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:12px;
+}
+.badge-tile{
+  display:grid; place-items:center;
+  height:120px; padding:14px;
+  background:var(--white);
+  border:1px solid var(--line); border-radius:var(--radius);
+}
+.badge-tile picture{ display:contents; }
+.badge-tile img{ width:auto; height:auto; max-width:100%; max-height:92px; object-fit:contain; }
+.badge-tile--dark{ background:#231F20; border-color:#231F20; padding:6px; } /* matches the Living Magazine badge's own background */
+.badge-tile--dark img{ max-height:108px; }
+@media (min-width:768px){ .badges__list--real{ grid-template-columns:repeat(4, minmax(0, 1fr)); } }
+@media (min-width:1024px){ .badges__list--real{ grid-template-columns:repeat(7, minmax(0, 1fr)); gap:16px; } }
+
+/* ---------- Real team photo ---------- */
+.about__photo{ aspect-ratio:3 / 2; border-radius:var(--radius-lg); }
+.about__caption{ margin-top:12px; font-size:var(--fs-small); color:var(--slate); }
+
+/* ---------- Brand social icons ---------- */
+.footer__social a{ width:48px; height:48px; font-size:20px; transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease); }
+.footer__social a:hover{ background:var(--bone); color:var(--ink); border-color:var(--bone); }
+.social-row{ display:flex; gap:8px; list-style:none; padding:0; }
+.social-row a{
+  display:grid; place-items:center; width:44px; height:44px; border-radius:50%;
+  border:1px solid var(--line); color:var(--ink); font-size:18px;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.social-row a:hover{ background:var(--ink); color:var(--bone); border-color:var(--ink); }
+
+@media (prefers-reduced-motion: no-preference){
+  .hero-form{ animation:word-rise 900ms var(--ease) 500ms both; }
+}

@@ -1,0 +1,88 @@
+/* =========================================================
+   motion.css — scroll reveals + reduced-motion guards
+   Every animation on the site lives behind
+   prefers-reduced-motion: no-preference.
+   ========================================================= */
+
+/* Reveal: 24px rise + fade, 80ms stagger via --i.
+   Only hidden when JS is running AND motion is allowed,
+   so content is never invisible without JS.            */
+@media (prefers-reduced-motion: no-preference){
+  .js [data-reveal]{
+    opacity:0;
+    transform:translate3d(0, 24px, 0);
+    transition:
+      opacity var(--dur) var(--ease),
+      transform calc(var(--dur) * 1.6) var(--ease);
+    transition-delay:calc(var(--i, 0) * 80ms);
+  }
+  .js [data-reveal].is-revealed{
+    opacity:1;
+    transform:none;
+  }
+
+  /* Hairline draw-in (trust band separators etc.) */
+  .js [data-draw]{
+    transform:scaleX(0); transform-origin:left;
+    transition:transform 900ms var(--ease);
+    transition-delay:calc(var(--i, 0) * 80ms);
+  }
+  .js [data-draw].is-revealed{ transform:scaleX(1); }
+
+  /* Drawer slide */
+  .drawer:not([hidden]){ animation:drawer-in var(--dur) var(--ease) both; }
+  @keyframes drawer-in{
+    from{ opacity:0; transform:translate3d(0,-8px,0); }
+    to{ opacity:1; transform:none; }
+  }
+}
+
+/* Hard guard: kill all motion for users who ask for less */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+    transition-delay:0ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+
+/* Hero load (storyboard shot 02): image resolves 1.06× → 1, headline words
+   rise in sequence at 60ms. Motion-allowed users only.                    */
+@media (prefers-reduced-motion: no-preference){
+  .hero__media img{ animation:hero-resolve 1600ms var(--ease) both; }
+  .hero__title .word{ animation:word-rise 900ms var(--ease) both; }
+  .hero__title .word:nth-child(1){ animation-delay:120ms; }
+  .hero__title .word:nth-child(2){ animation-delay:180ms; }
+  .hero__title .word:nth-child(3){ animation-delay:240ms; }
+  .hero__title .word:nth-child(4){ animation-delay:300ms; }
+  .hero__title .word:nth-child(5){ animation-delay:360ms; }
+  .hero__eyebrow,.hero__sub,.hero__actions,.hero__note{ animation:word-rise 900ms var(--ease) both; }
+  .hero__eyebrow{ animation-delay:60ms; }
+  .hero__sub{ animation-delay:460ms; }
+  .hero__actions{ animation-delay:540ms; }
+  .hero__note{ animation-delay:620ms; }
+
+  @keyframes hero-resolve{
+    from{ transform:scale(1.06); filter:blur(4px); }
+    to{ transform:none; filter:none; }
+  }
+  @keyframes word-rise{
+    from{ opacity:0; transform:translate3d(0, 24px, 0); }
+    to{ opacity:1; transform:none; }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference){
+  /* Success checkmark draws in */
+  .form-success:not([hidden]) .form-success__check circle{ stroke-dasharray:151; stroke-dashoffset:151; animation:draw 700ms var(--ease) forwards; }
+  .form-success:not([hidden]) .form-success__check path{ stroke-dasharray:40; stroke-dashoffset:40; animation:draw 500ms var(--ease) 450ms forwards; }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  /* Step 2 slides in */
+  .form__step.is-entering{ animation:step-in var(--dur) var(--ease) both; }
+  @keyframes step-in{ from{ opacity:0; transform:translate3d(24px,0,0); } to{ opacity:1; transform:none; } }
+  /* Before/after eases when moved by keyboard or the auto demo, not while dragging */
+  .ba.is-animating .ba__before{ transition:clip-path 700ms var(--ease); }
+  .ba.is-animating .ba__handle{ transition:left 700ms var(--ease); }
+}
